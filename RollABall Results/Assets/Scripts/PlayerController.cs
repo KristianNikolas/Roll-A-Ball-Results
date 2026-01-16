@@ -9,9 +9,7 @@ public class PlayerController : MonoBehaviour
     public TMP_Text countText;
     public TMP_Text winText;
 
-    // =========================
     // MAGNET POWER UP
-    // =========================
     [Header("Magnet PowerUp")]
     public float magnetDuration = 2f;     // Wie lange der Magnet aktiv ist
     public float magnetRadius = 5f;       // Radius, in dem PickUps angezogen werden
@@ -20,37 +18,27 @@ public class PlayerController : MonoBehaviour
     private bool magnetActive;             // Ist der Magnet aktuell aktiv?
     private Coroutine magnetCoroutine;     // Referenz zur Magnet-Coroutine
 
-    // =========================
     // JUMP (SPRUNG)
-    // =========================
     public float jumpForce = 2.5f;         // Stärke des Sprungs
     private bool isGrounded = true;        // Ist der Spieler am Boden?
 
-    // =========================
     // FALLEN (SCHNELLERES FALLEN)
-    // =========================
     public float fallMultiplier = 3f;      // Verstärkt die Schwerkraft beim Fallen
     public float lowJumpMultiplier = 2f;   // Macht kurze Sprünge möglich
 
-    // =========================
     // DASH
-    // =========================
     public float dashForce = 3f;           // Stärke des Dashs
     public float dashCooldown = 2f;        // Cooldown zwischen zwei Dashs
     private bool canDash = true;           // Darf aktuell gedasht werden?
 
-    // =========================
     // BEWEGUNG
-    // =========================
     public float speed = 10.10f;           // Bewegungsgeschwindigkeit
     private Rigidbody rb;                  // Rigidbody des Spielers
 
     private float movementX;               // Bewegung in X-Richtung
     private float movementY;               // Bewegung in Z-Richtung
 
-    // =========================
     // PUNKTESYSTEM
-    // =========================
     private int count;                     // Zähler für eingesammelte PickUps
 
 
@@ -102,9 +90,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, magnetRadius);
     }
 
-    // =========================
     // TRIGGER (PICKUPS & MAGNET)
-    // =========================
     private void OnTriggerEnter(Collider other)
     {
         // Normales PickUp einsammeln
@@ -127,9 +113,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // =========================
     // SPRINGEN
-    // =========================
     private void OnJump(InputValue value)
     {
         if (!isGrounded) return;
@@ -142,9 +126,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
     }
 
-    // =========================
     // DASH
-    // =========================
     private void OnDash(InputValue value)
     {
         if (!canDash) return;
@@ -163,9 +145,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(DashCooldownRoutine());
     }
 
-    // =========================
     // UI UPDATE
-    // =========================
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
@@ -177,9 +157,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // =========================
     // BODEN ERKENNUNG
-    // =========================
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -188,9 +166,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // =========================
     // DASH COOLDOWN
-    // =========================
     private IEnumerator DashCooldownRoutine()
     {
         canDash = false;
@@ -198,9 +174,7 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
-    // =========================
     // MAGNET ROUTINE
-    // =========================
     private IEnumerator MagnetRoutine()
     {
         magnetActive = true;
@@ -208,9 +182,7 @@ public class PlayerController : MonoBehaviour
         magnetActive = false;
     }
 
-    // =========================
     // PICKUPS ANZIEHEN
-    // =========================
     private void PullPickups()
     {
         // Alle Collider im Magnet-Radius finden
